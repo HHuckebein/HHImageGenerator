@@ -13,6 +13,7 @@
 		733134CA1B9C1EAC005CCEF8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733134C91B9C1EAC005CCEF8 /* Images.xcassets */; };
 		733134CD1B9C1EAC005CCEF8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 733134CB1B9C1EAC005CCEF8 /* LaunchScreen.xib */; };
 		733134D91B9C1EAC005CCEF8 /* HHImageGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733134D81B9C1EAC005CCEF8 /* HHImageGeneratorTests.swift */; };
+		733134E31B9C1ECD005CCEF8 /* HHImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733134E21B9C1ECD005CCEF8 /* HHImageGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,8 @@
 		733134D21B9C1EAC005CCEF8 /* HHImageGeneratorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HHImageGeneratorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		733134D71B9C1EAC005CCEF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		733134D81B9C1EAC005CCEF8 /* HHImageGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHImageGeneratorTests.swift; sourceTree = "<group>"; };
+		733134E21B9C1ECD005CCEF8 /* HHImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHImageGenerator.swift; path = Classes/HHImageGenerator.swift; sourceTree = "<group>"; };
+		733134E61B9C6F13005CCEF8 /* ImageGenerationPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ImageGenerationPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +80,14 @@
 		733134BF1B9C1EAC005CCEF8 /* HHImageGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				733134E51B9C6DCE005CCEF8 /* Classes */,
 				733134C21B9C1EAC005CCEF8 /* AppDelegate.swift */,
 				733134C41B9C1EAC005CCEF8 /* ViewController.swift */,
 				733134C61B9C1EAC005CCEF8 /* Main.storyboard */,
 				733134C91B9C1EAC005CCEF8 /* Images.xcassets */,
 				733134CB1B9C1EAC005CCEF8 /* LaunchScreen.xib */,
 				733134C01B9C1EAC005CCEF8 /* Supporting Files */,
+				733134E61B9C6F13005CCEF8 /* ImageGenerationPlayground.playground */,
 			);
 			path = HHImageGenerator;
 			sourceTree = "<group>";
@@ -110,6 +115,14 @@
 				733134D71B9C1EAC005CCEF8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		733134E51B9C6DCE005CCEF8 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				733134E21B9C1ECD005CCEF8 /* HHImageGenerator.swift */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				733134E31B9C1ECD005CCEF8 /* HHImageGenerator.swift in Sources */,
 				733134C51B9C1EAC005CCEF8 /* ViewController.swift in Sources */,
 				733134C31B9C1EAC005CCEF8 /* AppDelegate.swift in Sources */,
 			);

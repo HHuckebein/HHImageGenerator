@@ -110,7 +110,7 @@ public struct HHImageGenerator {
             CGContextSetLineWidth(context, lineWidth)
             
             let number = Int(ceil(size.width + xOffset) / (gap + lineWidth))
-            for index in 0..<number {
+            for index in 0...number {
                 if identifier == .RectangleWithStripesRight {
                     xPos = CGFloat(index) * (lineWidth + gap) - xOffset
                     CGContextMoveToPoint(context, xPos - margin, minYPos)
@@ -309,14 +309,55 @@ public struct HHImageGenerator {
         
     }
     
-    // MARK: Helper
-    public static func adjustedSize(inout size: CGSize, rotationType: HHImageRotation) {
-        if rotationType == .Angle180 || CGSizeEqualToSize(size, CGSizeZero) {
-            return;
+    public static func starWithSize (size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor?) -> UIImage? {
+        if CGSizeEqualToSize(size, CGSizeZero) || numberOfBeams == 0 || fabsf(Float(scale) - Float(1.0)) < FLT_EPSILON {
+            return nil
         }
-        let tmp = size.width
         
-        size.width = size.height
-        size.height = tmp
+        let isOpaque = (backgroundColor != nil) ? true : false
+        var rect = CGRectMake(0.0, 0.0, size.width, size.height)
+        
+        UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0)
+        let context = UIGraphicsGetCurrentContext()
+        
+        if isOpaque {
+            backgroundColor?.set()
+            CGContextFillRect(context, rect)
+        }
+        
+        let outerRadius = min(size.width, size.height) / 2
+        let innerRadius = outerRadius * scale
+        
+        let totalNumberOfPoints = numberOfBeams * 2
+        var angle = 2 * M_PI  / Double(totalNumberOfPoints)
+        
+        var m = tan(angle)
+        var innerPoint = CGPoint(x: innerRadius * CGFloat(cos(-angle)), y: innerRadius * CGFloat(sin(-angle)))
+        var outerPoint = CGPointZero
+        
+        CGContextTranslateCTM(context, size.width / 2.0, size.height / 2.0)
+        CGContextRotateCTM(context, CGFloat(-M_PI_2))
+        
+        var path = UIBezierPath()
+        path.moveToPoint(innerPoint)
+        for i in 0..<totalNumberOfPoints {
+            if i % 2 == 1 {
+                innerPoint.x = innerRadius * CGFloat(cos(Double(i) * angle))
+                innerPoint.y = innerRadius * CGFloat(sin(Double(i) * angle))
+                path.addLineToPoint(innerPoint)
+            } else {
+                outerPoint.x = outerRadius * CGFloat(cos(Double(i) * angle))
+                outerPoint.y = outerRadius * CGFloat(sin(Double(i) * angle))
+                path.addLineToPoint(outerPoint)
+            }
+        }
+        CGContextSetFillColorWithColor(context, color.CGColor)
+        CGContextAddPath(context, path.CGPath)
+        CGContextDrawPath(context, kCGPathFill)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        
+        return image;
     }
 }

@@ -3,14 +3,12 @@
 import UIKit
 import GLKit
 
-var str = "Hello, playground"
-
 let imgRect = HHImageGenerator.imageWithSize(CGSize(width: 100.0, height: 100.0), color: UIColor.redColor(), backgroundColor: nil, identifier: .Rectangle)
 let imgCircle = HHImageGenerator.imageWithSize(CGSize(width: 100.0, height: 100.0), color: UIColor.blueColor(), backgroundColor: UIColor.greenColor(), identifier: .Circle)
 
 let imgCircleWRightBar = HHImageGenerator.imageWithSize(CGSize(width: 100.0, height: 100.0), color: UIColor.blueColor(), backgroundColor: UIColor.greenColor(), identifier: .CircleWithRightBar)
 let imgDash1 = HHImageGenerator.imageWithSize(CGSizeMake(100.0, 100.0), color: UIColor.redColor(), backgroundColor: UIColor.whiteColor(), dashPattern: [10.0, 10.0], identifier: .RectangleWithStripesLeft)
-let imgDash2 = HHImageGenerator.imageWithSize(CGSizeMake(100.0, 100.0), color: UIColor.redColor(), backgroundColor: UIColor.whiteColor(), dashPattern: [5.0, 10.0], identifier: .RectangleWithStripesRight)
+let imgDash2 = HHImageGenerator.imageWithSize(CGSizeMake(100.0, 100.0), color: UIColor.redColor(), backgroundColor: UIColor.whiteColor(), dashPattern: [15.0, 10.0], identifier: .RectangleWithStripesRight)
 let imgRot90 = HHImageGenerator.rotatedImage(imgCircleWRightBar!, rotationAngle: GLKMathDegreesToRadians(90.0))
 let imgBorder = HHImageGenerator.imageWithSize(CGSizeMake(100.0, 100.0), outerRadius: 30.0, innerRadius: 10.0, color: UIColor.orangeColor(), backgroundColor: nil)
 let imgBordersTop = HHImageGenerator.imageWithSize(CGSizeMake(100.0, 100.0), borders: .Top, color: UIColor.yellowColor(), backgroundColor: UIColor.blackColor(), lineWidth: 20.0)
@@ -25,5 +23,6 @@ let imgBorders2 = HHImageGenerator.imageWithSize(CGSizeMake(100.0, 100.0), borde
 let imgRoundedCorner = HHImageGenerator.imageWithSize(CGSizeMake(100, 50), corners: .BottomLeft, cornerRadii: CGSizeMake(10.0, 10.0), color: UIColor.purpleColor(), backgroundColor: nil, lineWidth: 10)
 
 let view = UIView(frame: CGRectMake(0, 0, 400, 400))
-view.backgroundColor = UIColor(patternImage: imgDash1!)
+view.backgroundColor = UIColor(patternImage: imgDash2!)
+let form = HHImageGenerator.starWithSize(CGSize(width: 100.0, height: 100.0), numberOfBeams: 6, scale: 0.5, color: UIColor.redColor(), backgroundColor: nil)
 

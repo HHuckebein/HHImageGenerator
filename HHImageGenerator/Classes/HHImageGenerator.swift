@@ -99,8 +99,9 @@ struct HHImageGenerator {
             CGContextSetStrokeColorWithColor(context, color.CGColor)
             CGContextSetLineWidth(context, lineWidth)
             
+            let someNumber = ceil(size.width + xOffset) / (gap + lineWidth)
             let number = Int(ceil(size.width + xOffset) / (gap + lineWidth))
-            for index in 0..<number {
+            for index in 0...number {
                 if identifier == .RectangleWithStripesRight {
                    xPos = CGFloat(index) * (lineWidth + gap) - xOffset
                     CGContextMoveToPoint(context, xPos, minYPos)
@@ -120,8 +121,8 @@ struct HHImageGenerator {
             CGContextSetLineWidth(context, lineWidth)
             let path = UIBezierPath(rect: rect).CGPath
             CGContextAddPath(context, path)
-            CGContextSetStrokeColorWithColor(context, color.CGColor);
-            CGContextDrawPath(context, kCGPathStroke);
+            CGContextSetStrokeColorWithColor(context, color.CGColor)
+            CGContextDrawPath(context, kCGPathStroke)
         }
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -191,13 +192,12 @@ struct HHImageGenerator {
             }
         }
         CGContextAddPath(context, path.CGPath)
-        CGContextDrawPath(context, kCGPathStroke);
+        CGContextDrawPath(context, kCGPathStroke)
 
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        return image;
-
+        return image
     }
     
     static func imageWithSize (size: CGSize, corners: UIRectCorner, cornerRadii: CGSize, color: UIColor, backgroundColor: UIColor?, lineWidth: CGFloat) -> UIImage? {
@@ -218,19 +218,19 @@ struct HHImageGenerator {
 
         CGContextSetLineWidth(context, lineWidth)
         
-        rect = CGRectMake(lineWidth / 2, lineWidth / 2, size.width -  lineWidth, size.height - lineWidth);
+        rect = CGRectMake(lineWidth / 2, lineWidth / 2, size.width -  lineWidth, size.height - lineWidth)
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: cornerRadii)
         
         CGContextSetLineCap(context, kCGLineCapSquare)
         CGContextAddPath(context, path.CGPath)
         
-        CGContextSetStrokeColorWithColor(context, color.CGColor);
-        CGContextDrawPath(context, kCGPathStroke);
+        CGContextSetStrokeColorWithColor(context, color.CGColor)
+        CGContextDrawPath(context, kCGPathStroke)
         
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        return image;
+        return image
 
     }
     
@@ -256,13 +256,13 @@ struct HHImageGenerator {
         var path = UIBezierPath(arcCenter: center, radius: outerRadius, startAngle: CGFloat(0.0), endAngle: CGFloat(2 * M_PI), clockwise: false)
         path.addArcWithCenter(center, radius: innerRadius, startAngle: CGFloat(0.0), endAngle: CGFloat(2 * M_PI), clockwise: true)
         
-        CGContextAddPath(context, path.CGPath);
-        CGContextDrawPath(context, kCGPathEOFill);
+        CGContextAddPath(context, path.CGPath)
+        CGContextDrawPath(context, kCGPathEOFill)
 
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        return image;
+        return image
     }
     
     static func rotatedImage(image: UIImage, rotationAngle: Float) -> UIImage {
@@ -270,10 +270,10 @@ struct HHImageGenerator {
         let helperView = UIView(frame: CGRectMake(0,0, image.size.width, image.size.height))
         let transform = CGAffineTransformMakeRotation(CGFloat(rotationAngle))
         helperView.transform = transform
-        let rotatedSize = helperView.frame.size;
+        let rotatedSize = helperView.frame.size
         
-        UIGraphicsBeginImageContext(rotatedSize);
-        let context = UIGraphicsGetCurrentContext();
+        UIGraphicsBeginImageContext(rotatedSize)
+        let context = UIGraphicsGetCurrentContext()
         
         CGContextTranslateCTM(context, rotatedSize.width/2, rotatedSize.height/2)
         CGContextRotateCTM(context, CGFloat(rotationAngle))
@@ -296,5 +296,57 @@ struct HHImageGenerator {
         UIGraphicsEndImageContext()
         
         return image
+    }
+    
+    static func starWithSize (size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor?) -> UIImage? {
+        if CGSizeEqualToSize(size, CGSizeZero) || numberOfBeams == 0 || fabsf(Float(scale) - Float(1.0)) < FLT_EPSILON {
+            return nil
+        }
+        
+        let isOpaque = (backgroundColor != nil) ? true : false
+        var rect = CGRectMake(0.0, 0.0, size.width, size.height)
+        
+        UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0)
+        let context = UIGraphicsGetCurrentContext()
+        
+        if isOpaque {
+            backgroundColor?.set()
+            CGContextFillRect(context, rect)
+        }
+        
+        let outerRadius = min(size.width, size.height) / 2
+        let innerRadius = outerRadius * scale
+        
+        let totalNumberOfPoints = numberOfBeams * 2
+        var angle = 2 * M_PI  / Double(totalNumberOfPoints)
+        
+        var m = tan(angle)
+        var innerPoint = CGPoint(x: innerRadius * CGFloat(cos(-angle)), y: innerRadius * CGFloat(sin(-angle)))
+        var outerPoint = CGPointZero
+        
+        CGContextTranslateCTM(context, size.width / 2.0, size.height / 2.0)
+        CGContextRotateCTM(context, CGFloat(-M_PI_2))
+
+        var path = UIBezierPath()
+        path.moveToPoint(innerPoint)
+        for i in 0..<totalNumberOfPoints {
+            if i % 2 == 1 {
+                innerPoint.x = innerRadius * CGFloat(cos(Double(i) * angle))
+                innerPoint.y = innerRadius * CGFloat(sin(Double(i) * angle))
+                path.addLineToPoint(innerPoint)
+            } else {
+                outerPoint.x = outerRadius * CGFloat(cos(Double(i) * angle))
+                outerPoint.y = outerRadius * CGFloat(sin(Double(i) * angle))
+                path.addLineToPoint(outerPoint)
+            }
+        }
+        CGContextSetFillColorWithColor(context, color.CGColor)
+        CGContextAddPath(context, path.CGPath)
+        CGContextDrawPath(context, kCGPathFill)
+
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        
+        return image;
     }
 }

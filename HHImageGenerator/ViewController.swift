@@ -15,7 +15,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        imageView.image = HHImageGenerator.starWithSize(CGSize(width: 100.0, height: 100.0), numberOfBeams: 5, scale: 0.5, color: UIColor.redColor(), backgroundColor: UIColor.greenColor())
+        if let image = HHImageGenerator.imageWithSize(CGSize(width: 100.0, height: 100.0), color: UIColor.redColor(), backgroundColor: UIColor.whiteColor(), dashPattern: [50.0, 50,0], identifier: .RectangleWithStripesLeft) {
+            let color = UIColor(patternImage: image)
+            view.backgroundColor = color
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -1,7 +1,4 @@
 //
-// This file (and all other Swift source files in the Sources directory of this playground) will be precompiled into a framework which is automatically made available to ImageGenerationPlayground.playground.
-//
-//
 //  HHImageGenerator.swift
 //  HHImageGenerator
 //
@@ -23,13 +20,6 @@ public enum HHImageTypeIdentifier: Int {
     case RectangleBordered
 }
 
-public enum HHImageRotation {
-    case Unknown
-    case Angle90
-    case Angle180
-    case Angle270
-}
-
 public struct HHRectBorder : RawOptionSetType {
     typealias RawValue = UInt
     private var value: UInt = 0
@@ -45,7 +35,7 @@ public struct HHRectBorder : RawOptionSetType {
     // MARK: BitwiseOperationsType
     public static var allZeros: HHRectBorder { return self(0) }
     
-    static func fromMask(raw: UInt) -> HHRectBorder { return self(raw) }
+    public static func fromMask(raw: UInt) -> HHRectBorder { return self(raw) }
     
     // MARK: RawRepresentable
     public var rawValue: UInt { return self.value }
@@ -130,8 +120,8 @@ public struct HHImageGenerator {
             CGContextSetLineWidth(context, lineWidth)
             let path = UIBezierPath(rect: rect).CGPath
             CGContextAddPath(context, path)
-            CGContextSetStrokeColorWithColor(context, color.CGColor);
-            CGContextDrawPath(context, kCGPathStroke);
+            CGContextSetStrokeColorWithColor(context, color.CGColor)
+            CGContextDrawPath(context, kCGPathStroke)
         }
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -156,39 +146,6 @@ public struct HHImageGenerator {
             return HHImageGenerator.imageWithSize(size, color: color, backgroundColor: backgroundColor, lineWidth: pattern[0], gap: pattern[1], identifier: identifier)
         }
         return HHImageGenerator.imageWithSize(size, color: color, backgroundColor: backgroundColor, lineWidth: 2.0, gap: 3.0, identifier: identifier)
-    }
-    
-    public static func rotatedImage(image: UIImage, rotationAngle: Float) -> UIImage {
-        
-        let helperView = UIView(frame: CGRectMake(0,0, image.size.width, image.size.height))
-        let transform = CGAffineTransformMakeRotation(CGFloat(rotationAngle))
-        helperView.transform = transform
-        let rotatedSize = helperView.frame.size;
-        
-        UIGraphicsBeginImageContext(rotatedSize);
-        let context = UIGraphicsGetCurrentContext();
-        
-        CGContextTranslateCTM(context, rotatedSize.width/2, rotatedSize.height/2)
-        CGContextRotateCTM(context, CGFloat(rotationAngle))
-        
-        CGContextScaleCTM(context, 1.0, -1.0)
-        CGContextDrawImage(context, CGRectMake(-image.size.width / 2, -image.size.height / 2, image.size.width, image.size.height), image.CGImage)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
-    }
-    
-    public static func scaledImage(image: UIImage, scale: CGFloat) -> UIImage {
-        let ratio = min(image.size.width, image.size.height) * scale
-        let rect  = CGRectMake(0.0, 0.0, ratio * image.size.width, ratio * image.size.height)
-        UIGraphicsBeginImageContext(rect.size)
-        image.drawInRect(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
     }
     
     public static func imageWithSize (size: CGSize, borders: HHRectBorder,  color: UIColor, backgroundColor: UIColor?, lineWidth: CGFloat) -> UIImage? {
@@ -234,13 +191,12 @@ public struct HHImageGenerator {
             }
         }
         CGContextAddPath(context, path.CGPath)
-        CGContextDrawPath(context, kCGPathStroke);
+        CGContextDrawPath(context, kCGPathStroke)
         
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        return image;
-        
+        return image
     }
     
     public static func imageWithSize (size: CGSize, corners: UIRectCorner, cornerRadii: CGSize, color: UIColor, backgroundColor: UIColor?, lineWidth: CGFloat) -> UIImage? {
@@ -261,19 +217,19 @@ public struct HHImageGenerator {
         
         CGContextSetLineWidth(context, lineWidth)
         
-        rect = CGRectMake(lineWidth / 2, lineWidth / 2, size.width -  lineWidth, size.height - lineWidth);
+        rect = CGRectMake(lineWidth / 2, lineWidth / 2, size.width -  lineWidth, size.height - lineWidth)
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: cornerRadii)
-
+        
         CGContextSetLineCap(context, kCGLineCapSquare)
         CGContextAddPath(context, path.CGPath)
         
-        CGContextSetStrokeColorWithColor(context, color.CGColor);
-        CGContextDrawPath(context, kCGPathStroke);
+        CGContextSetStrokeColorWithColor(context, color.CGColor)
+        CGContextDrawPath(context, kCGPathStroke)
         
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        return image;
+        return image
         
     }
     
@@ -299,14 +255,46 @@ public struct HHImageGenerator {
         var path = UIBezierPath(arcCenter: center, radius: outerRadius, startAngle: CGFloat(0.0), endAngle: CGFloat(2 * M_PI), clockwise: false)
         path.addArcWithCenter(center, radius: innerRadius, startAngle: CGFloat(0.0), endAngle: CGFloat(2 * M_PI), clockwise: true)
         
-        CGContextAddPath(context, path.CGPath);
-        CGContextDrawPath(context, kCGPathEOFill);
+        CGContextAddPath(context, path.CGPath)
+        CGContextDrawPath(context, kCGPathEOFill)
         
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        return image;
+        return image
+    }
+    
+    public static func rotatedImage(image: UIImage, rotationAngle: Float) -> UIImage {
         
+        let helperView = UIView(frame: CGRectMake(0,0, image.size.width, image.size.height))
+        let transform = CGAffineTransformMakeRotation(CGFloat(rotationAngle))
+        helperView.transform = transform
+        let rotatedSize = helperView.frame.size
+        
+        UIGraphicsBeginImageContext(rotatedSize)
+        let context = UIGraphicsGetCurrentContext()
+        
+        CGContextTranslateCTM(context, rotatedSize.width/2, rotatedSize.height/2)
+        CGContextRotateCTM(context, CGFloat(rotationAngle))
+        
+        CGContextScaleCTM(context, 1.0, -1.0)
+        CGContextDrawImage(context, CGRectMake(-image.size.width / 2, -image.size.height / 2, image.size.width, image.size.height), image.CGImage)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    public static func scaledImage(image: UIImage, scale: CGFloat) -> UIImage {
+        let ratio = min(image.size.width, image.size.height) * scale
+        let rect  = CGRectMake(0.0, 0.0, ratio * image.size.width, ratio * image.size.height)
+        UIGraphicsBeginImageContext(rect.size)
+        image.drawInRect(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
     }
     
     public static func starWithSize (size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor?) -> UIImage? {

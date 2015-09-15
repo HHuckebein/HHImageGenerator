@@ -99,17 +99,16 @@ struct HHImageGenerator {
             CGContextSetStrokeColorWithColor(context, color.CGColor)
             CGContextSetLineWidth(context, lineWidth)
             
-            let someNumber = ceil(size.width + xOffset) / (gap + lineWidth)
             let number = Int(ceil(size.width + xOffset) / (gap + lineWidth))
             for index in 0...number {
                 if identifier == .RectangleWithStripesRight {
                    xPos = CGFloat(index) * (lineWidth + gap) - xOffset
-                    CGContextMoveToPoint(context, xPos, minYPos)
+                    CGContextMoveToPoint(context, xPos - margin, minYPos)
                     xPos += xOffset
                     CGContextAddLineToPoint(context, xPos + margin, maxYPos)
                 } else {
                     xPos = CGFloat(index) * (lineWidth + gap)
-                    CGContextMoveToPoint(context, xPos, minYPos)
+                    CGContextMoveToPoint(context, xPos + margin, minYPos)
                     xPos -= xOffset
                     CGContextAddLineToPoint(context, xPos - margin, maxYPos)
                 }

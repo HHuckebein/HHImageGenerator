@@ -12,19 +12,8 @@
 		733134C81B9C1EAC005CCEF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 733134C61B9C1EAC005CCEF8 /* Main.storyboard */; };
 		733134CA1B9C1EAC005CCEF8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733134C91B9C1EAC005CCEF8 /* Images.xcassets */; };
 		733134CD1B9C1EAC005CCEF8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 733134CB1B9C1EAC005CCEF8 /* LaunchScreen.xib */; };
-		733134D91B9C1EAC005CCEF8 /* HHImageGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733134D81B9C1EAC005CCEF8 /* HHImageGeneratorTests.swift */; };
 		733134E31B9C1ECD005CCEF8 /* HHImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733134E21B9C1ECD005CCEF8 /* HHImageGenerator.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		733134D31B9C1EAC005CCEF8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 733134B51B9C1EAC005CCEF8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 733134BC1B9C1EAC005CCEF8;
-			remoteInfo = HHImageGenerator;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		733134BD1B9C1EAC005CCEF8 /* HHImageGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HHImageGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,22 +23,12 @@
 		733134C71B9C1EAC005CCEF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		733134C91B9C1EAC005CCEF8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		733134CC1B9C1EAC005CCEF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		733134D21B9C1EAC005CCEF8 /* HHImageGeneratorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HHImageGeneratorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		733134D71B9C1EAC005CCEF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		733134D81B9C1EAC005CCEF8 /* HHImageGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHImageGeneratorTests.swift; sourceTree = "<group>"; };
 		733134E21B9C1ECD005CCEF8 /* HHImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHImageGenerator.swift; path = Classes/HHImageGenerator.swift; sourceTree = "<group>"; };
-		733134E61B9C6F13005CCEF8 /* ImageGenerationPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ImageGenerationPlayground.playground; sourceTree = "<group>"; };
+		73E02F951EA276830077FD93 /* HHImageGenerationPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = HHImageGenerationPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		733134BA1B9C1EAC005CCEF8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		733134CF1B9C1EAC005CCEF8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,7 +42,6 @@
 			isa = PBXGroup;
 			children = (
 				733134BF1B9C1EAC005CCEF8 /* HHImageGenerator */,
-				733134D51B9C1EAC005CCEF8 /* HHImageGeneratorTests */,
 				733134BE1B9C1EAC005CCEF8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,7 +50,6 @@
 			isa = PBXGroup;
 			children = (
 				733134BD1B9C1EAC005CCEF8 /* HHImageGenerator.app */,
-				733134D21B9C1EAC005CCEF8 /* HHImageGeneratorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,7 +64,7 @@
 				733134C91B9C1EAC005CCEF8 /* Images.xcassets */,
 				733134CB1B9C1EAC005CCEF8 /* LaunchScreen.xib */,
 				733134C01B9C1EAC005CCEF8 /* Supporting Files */,
-				733134E61B9C6F13005CCEF8 /* ImageGenerationPlayground.playground */,
+				73E02F951EA276830077FD93 /* HHImageGenerationPlayground.playground */,
 			);
 			path = HHImageGenerator;
 			sourceTree = "<group>";
@@ -96,23 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				733134C11B9C1EAC005CCEF8 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		733134D51B9C1EAC005CCEF8 /* HHImageGeneratorTests */ = {
-			isa = PBXGroup;
-			children = (
-				733134D81B9C1EAC005CCEF8 /* HHImageGeneratorTests.swift */,
-				733134D61B9C1EAC005CCEF8 /* Supporting Files */,
-			);
-			path = HHImageGeneratorTests;
-			sourceTree = "<group>";
-		};
-		733134D61B9C1EAC005CCEF8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				733134D71B9C1EAC005CCEF8 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -145,39 +105,21 @@
 			productReference = 733134BD1B9C1EAC005CCEF8 /* HHImageGenerator.app */;
 			productType = "com.apple.product-type.application";
 		};
-		733134D11B9C1EAC005CCEF8 /* HHImageGeneratorTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 733134DF1B9C1EAC005CCEF8 /* Build configuration list for PBXNativeTarget "HHImageGeneratorTests" */;
-			buildPhases = (
-				733134CE1B9C1EAC005CCEF8 /* Sources */,
-				733134CF1B9C1EAC005CCEF8 /* Frameworks */,
-				733134D01B9C1EAC005CCEF8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				733134D41B9C1EAC005CCEF8 /* PBXTargetDependency */,
-			);
-			name = HHImageGeneratorTests;
-			productName = HHImageGeneratorTests;
-			productReference = 733134D21B9C1EAC005CCEF8 /* HHImageGeneratorTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		733134B51B9C1EAC005CCEF8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "RABE_IT Services";
 				TargetAttributes = {
 					733134BC1B9C1EAC005CCEF8 = {
 						CreatedOnToolsVersion = 6.4;
-					};
-					733134D11B9C1EAC005CCEF8 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = 733134BC1B9C1EAC005CCEF8;
+						DevelopmentTeam = 4VQVU766P5;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -195,7 +137,6 @@
 			projectRoot = "";
 			targets = (
 				733134BC1B9C1EAC005CCEF8 /* HHImageGenerator */,
-				733134D11B9C1EAC005CCEF8 /* HHImageGeneratorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -208,13 +149,6 @@
 				733134C81B9C1EAC005CCEF8 /* Main.storyboard in Resources */,
 				733134CD1B9C1EAC005CCEF8 /* LaunchScreen.xib in Resources */,
 				733134CA1B9C1EAC005CCEF8 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		733134D01B9C1EAC005CCEF8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,23 +165,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		733134CE1B9C1EAC005CCEF8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				733134D91B9C1EAC005CCEF8 /* HHImageGeneratorTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		733134D41B9C1EAC005CCEF8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 733134BC1B9C1EAC005CCEF8 /* HHImageGenerator */;
-			targetProxy = 733134D31B9C1EAC005CCEF8 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		733134C61B9C1EAC005CCEF8 /* Main.storyboard */ = {
@@ -282,14 +200,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -305,7 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -326,8 +247,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -343,9 +266,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -354,9 +278,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4VQVU766P5;
 				INFOPLIST_FILE = HHImageGenerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.berndrabe.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -364,43 +291,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4VQVU766P5;
 				INFOPLIST_FILE = HHImageGenerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.berndrabe.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		733134E01B9C1EAC005CCEF8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HHImageGeneratorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HHImageGenerator.app/HHImageGenerator";
-			};
-			name = Debug;
-		};
-		733134E11B9C1EAC005CCEF8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HHImageGeneratorTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HHImageGenerator.app/HHImageGenerator";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -423,14 +319,7 @@
 				733134DE1B9C1EAC005CCEF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		733134DF1B9C1EAC005CCEF8 /* Build configuration list for PBXNativeTarget "HHImageGeneratorTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				733134E01B9C1EAC005CCEF8 /* Debug */,
-				733134E11B9C1EAC005CCEF8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

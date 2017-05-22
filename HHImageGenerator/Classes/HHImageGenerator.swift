@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import GLKit
+import GLKit.GLKMathUtils
 
 public enum HHImageTypeIdentifier: Int {
     case rectangle
@@ -352,7 +352,7 @@ extension UIImage {
         self.init(cgImage: cgImage)
     }
     
-    public convenience init?(withSize size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) {
+    public convenience init?(starWithSize size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) {
         if size.equalTo(CGSize.zero) || numberOfBeams == 0 || fabsf(Float(scale) - Float(1.0)) < Float.ulpOfOne {
             return nil
         }

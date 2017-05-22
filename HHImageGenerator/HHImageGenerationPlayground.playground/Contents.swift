@@ -30,21 +30,21 @@ shapeView.layer.mask = shapeLayer
 //view.layer.addSublayer(shapeLayer)
 shapeView.backgroundColor = .orange
 
-let some = HHImageGenerator.image(withCharacter: "+", fontName: "HelveticaNeue-Bold", fontSize: 150.0, size: size, color: .blue, backgroundColor: .yellow, identifier: .circle)
+let some = UIImage(withCharacter: "+", fontName: "HelveticaNeue-Bold", fontSize: 150.0, size: size, color: .blue, backgroundColor: .yellow, identifier: .circle)
 
-let circle = HHImageGenerator.circle(withSize: size, color: .red)
+let circle = UIImage(circleWithSize: size, color: .red)
 
-let rect = HHImageGenerator.rectangle(withSize: size, color: .red)
-
-
-let ring = HHImageGenerator.ring(withSize: size, outerRadius: size.width/2, innerRadius: size.width/2 - 10, color: .orange)
-
-let star = HHImageGenerator.star(withSize: size, numberOfBeams: 8, scale: 0.7, color: .green)
+let rect = UIImage(rectangleWithSize: size, color: .red)
 
 
+let ring = UIImage(ringWithSize: size, outerRadius: size.width/2, innerRadius: size.width/2 - 10, color: .orange)
+
+let star = UIImage(starWithSize: size, numberOfBeams: 8, scale: 0.7, color: .green)
 
 
-let rot = HHImageGenerator.rotatedImage(rect!, rotationAngle: 0.5)
 
-let dash1 = HHImageGenerator.image(withDashPattern: [2, 6], size: size, color: .red, backgroundColor: .white, identifier: .rectangleWithStripesLeft)
+
+let rot =  rect?.rotate(by: 0.5)
+
+let dash1 = UIImage(withDashPattern: [2, 6], size: size, color: .red, backgroundColor: .white, identifier: .rectangleWithStripesLeft)
 

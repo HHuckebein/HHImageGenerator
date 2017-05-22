@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import GLKit
+import GLKit.GLKMathUtils
 
 public enum HHImageTypeIdentifier: Int {
     case rectangle
@@ -32,7 +32,7 @@ public struct HHRectBorder : OptionSet {
     
     // MARK: BitwiseOperationsType
     static var allZeros: HHRectBorder { return self.init(0) }
-
+    
     static func fromMask(_ raw: UInt) -> HHRectBorder { return self.init(raw) }
     
     // MARK: RawRepresentable
@@ -46,28 +46,28 @@ public struct HHRectBorder : OptionSet {
     static var AllCorners: HHRectBorder { return HHRectBorder(~0) }
 }
 
-public struct HHImageGenerator {
+extension UIImage {
     
     /** Generates an image as specified with the parameters and scale factor.
-    - parameter size:    The size of the image.
-    - parameter color: The stroke color of the strips if one of the stripes identifier is used. Otherwise the fill color of the shape.
-    - parameter backgroundColor: The background color of the area outside the shape. Defaults to clear color.
-    - parameter identifier: The identifier to define the shape
-    - returns: image The generated image in the devices' scale.
-    */
-
-    public static func image(withSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, lineWidth: CGFloat, gap: CGFloat, identifier: HHImageTypeIdentifier) -> UIImage? {
+     - parameter size:    The size of the image.
+     - parameter color: The stroke color of the strips if one of the stripes identifier is used. Otherwise the fill color of the shape.
+     - parameter backgroundColor: The background color of the area outside the shape. Defaults to clear color.
+     - parameter identifier: The identifier to define the shape
+     - returns: image The generated image in the devices' scale.
+     */
+    
+    public convenience init?(withSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, lineWidth: CGFloat, gap: CGFloat, identifier: HHImageTypeIdentifier) {
         if size.equalTo(CGSize.zero) {
             return nil
         }
-
-        let isOpaque = (backgroundColor != nil) 
+        
+        let isOpaque = (backgroundColor != nil)
         let rect = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0)
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil
         }
-
+        
         if isOpaque {
             backgroundColor?.set()
             context.fill(rect)
@@ -89,21 +89,21 @@ public struct HHImageGenerator {
             yOrigin = (size.height - barHeight) / 2.0
             context.fill(CGRect(x: xOrigin, y: yOrigin, width: radius, height: radius))
             
-        /** Drawing happens to start/end outside of the visible area (rect) so
-            that the complete rectangle is filled.
-        */
+            /** Drawing happens to start/end outside of the visible area (rect) so
+             that the complete rectangle is filled.
+             */
         case .rectangleWithStripesLeft: fallthrough
         case .rectangleWithStripesRight:
-//            var xPos: CGFloat = 0.0
+            //            var xPos: CGFloat = 0.0
             let angle = GLKMathDegreesToRadians(45.0)
             /** This is where we would start drawing with line width zero.
-            Needs to be correct by line width.
-            */
+             Needs to be correct by line width.
+             */
             let xOffset = CGFloat(tanf(angle)) * size.height
             let adjustment = lineWidth / 2.0 * CGFloat(sinf(angle))
             /** Adjustment applies to x and y position as this is an equilateral triangle (45°)
-            Think of the line as an rectangular stripes to be positioned. 0/0 is the top left corner.
-            */
+             Think of the line as an rectangular stripes to be positioned. 0/0 is the top left corner.
+             */
             let minYPos = -adjustment
             let maxYPos = size.height + adjustment
             
@@ -111,8 +111,8 @@ public struct HHImageGenerator {
             context.setLineWidth(lineWidth)
             
             /** Calculate the total number of lines to be drawn.
-            Consider a pair of line + gap as one unit.
-            */
+             Consider a pair of line + gap as one unit.
+             */
             var startPoint = CGPoint(x: 0, y: minYPos)
             var endPoint   = CGPoint(x: 0, y: maxYPos)
             let number = Int(ceil(size.width + xOffset) / (lineWidth + gap))
@@ -141,36 +141,38 @@ public struct HHImageGenerator {
             context.drawPath(using: CGPathDrawingMode.stroke)
         }
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        guard let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
         UIGraphicsEndImageContext()
-        
-        return image
+        self.init(cgImage: cgImage)
     }
     
-    public static func circle(withSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil) -> UIImage?  {
-        return HHImageGenerator.image(withSize: size, color: color, backgroundColor: backgroundColor, lineWidth: 0, gap: 0, identifier: .circle)
+    public convenience init?(circleWithSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil)  {
+        self.init(withSize: size, color: color, backgroundColor: backgroundColor, lineWidth: 0, gap: 0, identifier: .circle)
     }
     
-    public static func rectangle(withSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil) -> UIImage?  {
-        return HHImageGenerator.image(withSize: size, color: color, backgroundColor: backgroundColor, lineWidth: 0, gap: 0, identifier: .rectangle)
+    public convenience init?(rectangleWithSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil)  {
+        self.init(withSize: size, color: color, backgroundColor: backgroundColor, lineWidth: 0, gap: 0, identifier: .rectangle)
     }
     
-    public static func image(withDashPattern pattern: Array<CGFloat>, size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, identifier: HHImageTypeIdentifier) -> UIImage? {
+    public convenience init?(withDashPattern pattern: Array<CGFloat>, size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, identifier: HHImageTypeIdentifier) {
         if size.equalTo(CGSize.zero) || pattern.count < 2 {
             return nil
         }
         
-        return HHImageGenerator.image(withSize: size, color: color, backgroundColor: backgroundColor, lineWidth: pattern[0], gap: pattern[1], identifier: identifier)
+        self.init(withSize: size, color: color, backgroundColor: backgroundColor, lineWidth: pattern[0], gap: pattern[1], identifier: identifier)
     }
     
-    public static func image(withBorders borders: HHRectBorder, borderWidth: CGFloat, size: CGSize,  color: UIColor, backgroundColor: UIColor? = nil) -> UIImage? {
+    public convenience init?(withBorders borders: HHRectBorder, borderWidth: CGFloat, size: CGSize,  color: UIColor, backgroundColor: UIColor? = nil) {
         if size.equalTo(CGSize.zero) {
             return nil
         }
-
+        
         let isOpaque = (backgroundColor != nil) ? true : false
         let rect = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-
+        
         UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0)
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil
@@ -180,7 +182,7 @@ public struct HHImageGenerator {
             backgroundColor?.set()
             context.fill(rect)
         }
-
+        
         context.setLineWidth(borderWidth)
         context.setStrokeColor(color.cgColor)
         
@@ -209,14 +211,16 @@ public struct HHImageGenerator {
         }
         context.addPath(path.cgPath)
         context.drawPath(using: CGPathDrawingMode.stroke)
-
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
         
-        return image
+        guard let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        self.init(cgImage: cgImage)
     }
     
-    public static func image(withCorners corners: UIRectCorner, cornerRadii: CGSize, borderWidth: CGFloat, size: CGSize, color: UIColor, backgroundColor: UIColor? = nil) -> UIImage? {
+    public convenience init?(withCorners corners: UIRectCorner, cornerRadii: CGSize, borderWidth: CGFloat, size: CGSize, color: UIColor, backgroundColor: UIColor? = nil) {
         if size.equalTo(CGSize.zero) {
             return nil
         }
@@ -228,12 +232,12 @@ public struct HHImageGenerator {
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil
         }
-
+        
         if isOpaque {
             backgroundColor?.set()
             context.fill(rect)
         }
-
+        
         context.setLineWidth(borderWidth)
         
         rect = CGRect(x: borderWidth / 2, y: borderWidth / 2, width: size.width -  borderWidth, height: size.height - borderWidth)
@@ -245,21 +249,22 @@ public struct HHImageGenerator {
         context.setStrokeColor(color.cgColor)
         context.drawPath(using: CGPathDrawingMode.stroke)
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        guard let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
         UIGraphicsEndImageContext()
-        
-        return image
-
+        self.init(cgImage: cgImage)
     }
     
-    public static func ring(withSize size: CGSize, outerRadius: CGFloat, innerRadius: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) -> UIImage? {
+    public convenience init?(ringWithSize size: CGSize, outerRadius: CGFloat, innerRadius: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) {
         if size.equalTo(CGSize.zero) {
             return nil
         }
-
+        
         let isOpaque = (backgroundColor != nil) ? true : false
         let rect = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-
+        
         UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0)
         
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -278,25 +283,27 @@ public struct HHImageGenerator {
         
         context.addPath(path.cgPath)
         context.drawPath(using: CGPathDrawingMode.eoFill)
-
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
         
-        return image
+        guard let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        self.init(cgImage: cgImage)
     }
     
     /** Creates an image of the specified type `identifier`.
-    - parameter size: - The size of the  image.
-    - parameter color: - The image color.
-    - parameter backgroundColor: - If present used as background color or as paint color if a `character` is specified. nil makes a transparent background.
-    - parameter character: - A string which is drawn centered in the image. Color defaults to white if no `backgroundColor` is specified.
-    - parameter fontName: - The font name to be used if a character string is specified.
-    - parameter fontSize: - The font size.
-    - parameter identifier: - Specifies the type of image.
-    :return: The rendered image in the device scale.
-    */
+     - parameter size: - The size of the  image.
+     - parameter color: - The image color.
+     - parameter backgroundColor: - If present used as background color or as paint color if a `character` is specified. nil makes a transparent background.
+     - parameter character: - A string which is drawn centered in the image. Color defaults to white if no `backgroundColor` is specified.
+     - parameter fontName: - The font name to be used if a character string is specified.
+     - parameter fontSize: - The font size.
+     - parameter identifier: - Specifies the type of image.
+     :return: The rendered image in the device scale.
+     */
     
-    public static func image(withCharacter character: String, fontName: String = "Helevetica", fontSize: CGFloat = 17.0, size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, identifier: HHImageTypeIdentifier) -> UIImage? {
+    public convenience init?(withCharacter character: String, fontName: String = "Helevetica", fontSize: CGFloat = 17.0, size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, identifier: HHImageTypeIdentifier) {
         if size.equalTo(CGSize.zero) {
             return nil
         }
@@ -328,7 +335,7 @@ public struct HHImageGenerator {
                 context.setFillColor(UIColor.white.cgColor)
             }
             
-            let path = HHImageGenerator.outlinePathForString(character, fontName: fontName, fontSize: fontSize)
+            let path = UIImage.outlinePathForString(character, fontName: fontName, fontSize: fontSize)
             let frame = path.cgPath.boundingBox
             let offsetX: CGFloat = (size.width  - frame.width)  / 2.0 - frame.minX
             let offsetY: CGFloat = (size.height - frame.height) / 2.0 - frame.minY
@@ -337,47 +344,15 @@ public struct HHImageGenerator {
             context.drawPath(using: CGPathDrawingMode.fill)
         }
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
-    }
-
-    public static func rotatedImage(_ image: UIImage, rotationAngle: Float) -> UIImage? {
-        let helperView = UIView(frame: CGRect(x: 0,y: 0, width: image.size.width, height: image.size.height))
-        let transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
-        helperView.transform = transform
-        let rotatedSize = helperView.frame.size
-        
-        UIGraphicsBeginImageContext(rotatedSize)
-        guard let context = UIGraphicsGetCurrentContext(), let cgImage = image.cgImage else {
+        guard let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
+            UIGraphicsEndImageContext()
             return nil
         }
-        
-        context.translateBy(x: rotatedSize.width/2, y: rotatedSize.height/2)
-        context.rotate(by: CGFloat(rotationAngle))
-        
-        context.scaleBy(x: 1.0, y: -1.0)
-        context.draw(cgImage, in: CGRect(x: -image.size.width / 2, y: -image.size.height / 2, width: image.size.width, height: image.size.height))
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
-        return image
+        self.init(cgImage: cgImage)
     }
     
-    public static func scaledImage(_ image: UIImage, scale: CGFloat) -> UIImage? {
-        let ratio = min(image.size.width, image.size.height) * scale
-        let rect  = CGRect(x: 0.0, y: 0.0, width: ratio * image.size.width, height: ratio * image.size.height)
-        UIGraphicsBeginImageContext(rect.size)
-        image.draw(in: rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
-    }
-    
-    public static func star(withSize size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) -> UIImage? {
+    public convenience init?(starWithSize size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) {
         if size.equalTo(CGSize.zero) || numberOfBeams == 0 || fabsf(Float(scale) - Float(1.0)) < Float.ulpOfOne {
             return nil
         }
@@ -407,7 +382,7 @@ public struct HHImageGenerator {
         
         context.translateBy(x: size.width / 2.0, y: size.height / 2.0)
         context.rotate(by: CGFloat(-Double.pi/2))
-
+        
         let path = UIBezierPath()
         path.move(to: innerPoint)
         for i in 0..<totalNumberOfPoints {
@@ -424,20 +399,22 @@ public struct HHImageGenerator {
         context.setFillColor(color.cgColor)
         context.addPath(path.cgPath)
         context.drawPath(using: CGPathDrawingMode.fill)
-
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
         
-        return image;
+        guard let cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        self.init(cgImage: cgImage)
     }
     
     /** Creates the outline path of a given string/character.
-    NOTE: One must correct the CTM (current transformation matrix)
-    with the bounding box's frame/origing, to have the path correctly
-    rendered.
-      let frame = CGPathGetBoundingBox(drawingPath.CGPath)
-      CGContextTranslateCTM(context, -CGRectGetMinX(frame), -CGRectGetMinY(frame))
-    */
+     NOTE: One must correct the CTM (current transformation matrix)
+     with the bounding box's frame/origing, to have the path correctly
+     rendered.
+     let frame = CGPathGetBoundingBox(drawingPath.CGPath)
+     CGContextTranslateCTM(context, -CGRectGetMinX(frame), -CGRectGetMinY(frame))
+     */
     static fileprivate func outlinePathForString (_ string: String, fontName: String, fontSize: CGFloat) -> UIBezierPath {
         let bezierPath = UIBezierPath()
         if let font = UIFont (name: fontName, size: fontSize), string.isEmpty == false {
@@ -464,5 +441,41 @@ public struct HHImageGenerator {
             }
         }
         return bezierPath
+    }
+}
+
+extension UIImage {
+    public func rotate(by rotationAngle: Float) -> UIImage? {
+        let helperView = UIView(frame: CGRect(x: 0,y: 0, width: self.size.width, height: self.size.height))
+        let transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
+        helperView.transform = transform
+        let rotatedSize = helperView.frame.size
+        
+        UIGraphicsBeginImageContext(rotatedSize)
+        guard let context = UIGraphicsGetCurrentContext(), let cgImage = self.cgImage else {
+            return nil
+        }
+        
+        context.translateBy(x: rotatedSize.width/2, y: rotatedSize.height/2)
+        context.rotate(by: CGFloat(rotationAngle))
+        
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.draw(cgImage, in: CGRect(x: -self.size.width / 2, y: -self.size.height / 2, width: self.size.width, height: self.size.height))
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    public func scaled(by scale: CGFloat) -> UIImage? {
+        let ratio = min(self.size.width, self.size.height) * scale
+        let rect  = CGRect(x: 0.0, y: 0.0, width: ratio * self.size.width, height: ratio * self.size.height)
+        UIGraphicsBeginImageContext(rect.size)
+        self.draw(in: rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
     }
 }

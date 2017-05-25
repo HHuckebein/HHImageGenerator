@@ -303,12 +303,12 @@ extension UIImage {
      :return: The rendered image in the device scale.
      */
     
-    public convenience init?(withCharacter character: String, fontName: String = "Helevetica", fontSize: CGFloat = 17.0, size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, identifier: HHImageTypeIdentifier) {
+    public convenience init?(withString string: String, font: UIFont = UIFont.systemFont(ofSize: 17.0), size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, identifier: HHImageTypeIdentifier) {
         if size.equalTo(CGSize.zero) {
             return nil
         }
         
-        let isOpaque = (backgroundColor != nil) && character.isEmpty
+        let isOpaque = (backgroundColor != nil) && string.isEmpty
         let rect = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0)
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -326,7 +326,7 @@ extension UIImage {
         default: return nil
         }
         
-        if character.isEmpty == false {
+        if string.isEmpty == false {
             context.saveGState()
             if let characterColor = backgroundColor {
                 context.setFillColor(characterColor.cgColor)
@@ -335,7 +335,7 @@ extension UIImage {
                 context.setFillColor(UIColor.white.cgColor)
             }
             
-            let path = UIImage.outlinePathForString(character, fontName: fontName, fontSize: fontSize)
+            let path = UIImage.outlinePath(for: string, font: font)
             let frame = path.cgPath.boundingBox
             let offsetX: CGFloat = (size.width  - frame.width)  / 2.0 - frame.minX
             let offsetY: CGFloat = (size.height - frame.height) / 2.0 - frame.minY
@@ -415,9 +415,9 @@ extension UIImage {
      let frame = CGPathGetBoundingBox(drawingPath.CGPath)
      CGContextTranslateCTM(context, -CGRectGetMinX(frame), -CGRectGetMinY(frame))
      */
-    static fileprivate func outlinePathForString (_ string: String, fontName: String, fontSize: CGFloat) -> UIBezierPath {
+    static fileprivate func outlinePath(for string: String, font: UIFont) -> UIBezierPath {
         let bezierPath = UIBezierPath()
-        if let font = UIFont (name: fontName, size: fontSize), string.isEmpty == false {
+        if string.isEmpty == false {
             let attrString = NSAttributedString(string: string, attributes: [NSFontAttributeName : font])
             let line       = CTLineCreateWithAttributedString(attrString)
             let runArray   = CTLineGetGlyphRuns(line) as! Array<CTRun>

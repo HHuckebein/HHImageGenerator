@@ -30,7 +30,7 @@ shapeView.layer.mask = shapeLayer
 //view.layer.addSublayer(shapeLayer)
 shapeView.backgroundColor = .orange
 
-let some = UIImage(withCharacter: "+", fontName: "HelveticaNeue-Bold", fontSize: 150.0, size: size, color: .blue, backgroundColor: .yellow, identifier: .circle)
+let some = UIImage(withString: "+", font: UIFont.boldSystemFont(ofSize: 150), size: size, color: .blue, backgroundColor: .yellow, identifier: .circle)
 
 let circle = UIImage(circleWithSize: size, color: .red)
 
@@ -48,3 +48,15 @@ let rot =  rect?.rotate(by: 0.5)
 
 let dash1 = UIImage(withDashPattern: [2, 6], size: size, color: .red, backgroundColor: .white, identifier: .rectangleWithStripesLeft)
 
+let color = UIColor(patternImage: some!)
+class SomeView: UIView {
+    override func draw(_ rect: CGRect) {
+        guard let ctx = UIGraphicsGetCurrentContext() else {
+            return
+        }
+        ctx.setFillColor(color.cgColor)
+        ctx.fill(rect)
+    }
+}
+
+let bla = SomeView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))

@@ -32,14 +32,14 @@ shapeView.backgroundColor = .orange
 
 let some = UIImage(withString: "+", font: UIFont.boldSystemFont(ofSize: 150), size: size, color: .blue, backgroundColor: .yellow, identifier: .circle)
 
-let circle = UIImage(circleWithSize: size, color: .red)
+let circle = UIImage(circle: size, color: .red)
 
-let rect = UIImage(rectangleWithSize: size, color: .red)
+let rect = UIImage(rectangle: size, color: .red)
 
 
-let ring = UIImage(ringWithSize: size, outerRadius: size.width/2, innerRadius: size.width/2 - 10, color: .orange)
+let ring = UIImage(ring: size, outerRadius: size.width/2, innerRadius: size.width/2 - 10, color: .orange)
 
-let star = UIImage(starWithSize: size, numberOfBeams: 8, scale: 0.7, color: .green)
+let star = UIImage(star: size, numberOfBeams: 8, scale: 0.7, color: .green)
 
 
 
@@ -55,7 +55,9 @@ class SomeView: UIView {
             return
         }
         ctx.setFillColor(color.cgColor)
-        ctx.fill(rect)
+        ctx.translateBy(x: 10, y: 10)
+        ctx.addRect(rect)
+        ctx.drawPath(using: .fill)
     }
 }
 

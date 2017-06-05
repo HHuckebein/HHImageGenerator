@@ -48,7 +48,7 @@ public struct HHRectBorder : OptionSet {
 
 extension UIImage {
     
-    /** Generates an image as specified with the parameters and scale factor.
+    /** Generates an image as specified with the parameters.
      - parameter size:    The size of the image.
      - parameter color: The stroke color of the strips if one of the stripes identifier is used. Otherwise the fill color of the shape.
      - parameter backgroundColor: The background color of the area outside the shape. Defaults to clear color.
@@ -56,7 +56,7 @@ extension UIImage {
      - returns: image The generated image in the devices' scale.
      */
     
-    public convenience init?(withSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, lineWidth: CGFloat, gap: CGFloat, identifier: HHImageTypeIdentifier) {
+    private convenience init?(withSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil, lineWidth: CGFloat, gap: CGFloat, identifier: HHImageTypeIdentifier) {
         if size.equalTo(CGSize.zero) {
             return nil
         }
@@ -149,11 +149,11 @@ extension UIImage {
         self.init(cgImage: cgImage)
     }
     
-    public convenience init?(circleWithSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil)  {
+    public convenience init?(circle size: CGSize, color: UIColor, backgroundColor: UIColor? = nil)  {
         self.init(withSize: size, color: color, backgroundColor: backgroundColor, lineWidth: 0, gap: 0, identifier: .circle)
     }
     
-    public convenience init?(rectangleWithSize size: CGSize, color: UIColor, backgroundColor: UIColor? = nil)  {
+    public convenience init?(rectangle size: CGSize, color: UIColor, backgroundColor: UIColor? = nil)  {
         self.init(withSize: size, color: color, backgroundColor: backgroundColor, lineWidth: 0, gap: 0, identifier: .rectangle)
     }
     
@@ -257,7 +257,7 @@ extension UIImage {
         self.init(cgImage: cgImage)
     }
     
-    public convenience init?(ringWithSize size: CGSize, outerRadius: CGFloat, innerRadius: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) {
+    public convenience init?(ring size: CGSize, outerRadius: CGFloat, innerRadius: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) {
         if size.equalTo(CGSize.zero) {
             return nil
         }
@@ -352,7 +352,7 @@ extension UIImage {
         self.init(cgImage: cgImage)
     }
     
-    public convenience init?(starWithSize size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) {
+    public convenience init?(star size: CGSize, numberOfBeams: Int, scale: CGFloat, color: UIColor, backgroundColor: UIColor? = nil) {
         if size.equalTo(CGSize.zero) || numberOfBeams == 0 || fabsf(Float(scale) - Float(1.0)) < Float.ulpOfOne {
             return nil
         }

@@ -13,6 +13,8 @@
 		733134CA1B9C1EAC005CCEF8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 733134C91B9C1EAC005CCEF8 /* Images.xcassets */; };
 		733134CD1B9C1EAC005CCEF8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 733134CB1B9C1EAC005CCEF8 /* LaunchScreen.xib */; };
 		733134E31B9C1ECD005CCEF8 /* HHImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733134E21B9C1ECD005CCEF8 /* HHImageGenerator.swift */; };
+		7392512F1EE58A240074EE5E /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 7392512E1EE58A240074EE5E /* Readme.md */; };
+		739251311EE58C1C0074EE5E /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 739251301EE58C1C0074EE5E /* LICENSE.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		733134C91B9C1EAC005CCEF8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		733134CC1B9C1EAC005CCEF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		733134E21B9C1ECD005CCEF8 /* HHImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HHImageGenerator.swift; path = Classes/HHImageGenerator.swift; sourceTree = "<group>"; };
+		7392512E1EE58A240074EE5E /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		739251301EE58C1C0074EE5E /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		73E02F951EA276830077FD93 /* HHImageGenerationPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = HHImageGenerationPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,6 +45,8 @@
 		733134B41B9C1EAC005CCEF8 = {
 			isa = PBXGroup;
 			children = (
+				7392512E1EE58A240074EE5E /* Readme.md */,
+				739251301EE58C1C0074EE5E /* LICENSE.txt */,
 				733134BF1B9C1EAC005CCEF8 /* HHImageGenerator */,
 				733134BE1B9C1EAC005CCEF8 /* Products */,
 			);
@@ -146,6 +152,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				739251311EE58C1C0074EE5E /* LICENSE.txt in Resources */,
 				733134C81B9C1EAC005CCEF8 /* Main.storyboard in Resources */,
 				733134CD1B9C1EAC005CCEF8 /* LaunchScreen.xib in Resources */,
 				733134CA1B9C1EAC005CCEF8 /* Images.xcassets in Resources */,
@@ -161,6 +168,7 @@
 			files = (
 				733134E31B9C1ECD005CCEF8 /* HHImageGenerator.swift in Sources */,
 				733134C51B9C1EAC005CCEF8 /* ViewController.swift in Sources */,
+				7392512F1EE58A240074EE5E /* Readme.md in Sources */,
 				733134C31B9C1EAC005CCEF8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
